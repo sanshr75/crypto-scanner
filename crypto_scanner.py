@@ -63,5 +63,13 @@ def main():
             writer.writerow(r)
     print(f"Wrote {OUTPUT_CSV}")
 
-if __name__=='__main__':
+if __name__ == '__main__':
     main()
+
+    # Run on-chain analysis right after price scan
+    try:
+        import subprocess
+        print("Running on-chain tracker...")
+        subprocess.run(['python', '.github/scripts/fetch_onchain.py'], check=True)
+    except Exception as e:
+        print("Error running on-chain tracker:", e)
