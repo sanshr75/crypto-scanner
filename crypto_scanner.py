@@ -45,18 +45,31 @@ def main():
     for t in WATCHLIST:
         cg = get_price_info(t['coingecko_id'])
         
-        row = {
-            'Ticker': t['ticker'],
-            'Price': cg.get('current_price'),
-            '24h%': cg.get('change_24h'),
-            '7d%': cg.get('change_7d'),
-            'MarketCap': cg.get('market_cap'),
-            '24hVol': cg.get('volume_24h'),
-            'Holders': onchain.get('holders'),
-            'RecentTransfers_100': onchain.get('recent_transfers_100'),
-            'ExchangeTransferCount_100': onchain.get('exchange_transfer_count_100'),
-            'LastUpdated': datetime.now(timezone.utc).isoformat()
-        }
+        # Fetch price data
+cg = get_price_info(t['coingecko_id'])
+
+# Try fetching on-chain data (if available)
+onchain_data = {}
+try:
+    from .github.scripts.fetch_onchain import get_onchain_data
+    onchain_data = get_onchain_data(t['contract'])
+except Exception as e:
+    print(f"On-chain fetch failed for {t['ticker']}: {e}")
+    onchain_data = {}
+
+# Build row
+row = {
+    'Ticker': t['ticker'],
+    'Price': cg.get('current_price'),
+    '24h%': cg.get('change_24h'),
+    '7d%': cg.get('change_7d'),
+    'MarketCap': cg.get('market_cap'),
+    '24hVol': cg.get('volume_24h'),
+    'Holders': onchain_data.get('holders'),
+    'RecentTransfers_100': onchain_data.get('recent_transfers_100'),
+    'ExchangeTransferCount_100': onchain_data.get('exchange_transfer_count_100'),
+    'LastUpdated': datetime.now(timezone.utc).isoformat()
+}
 
         rows.append(row)
         time.sleep(1)
