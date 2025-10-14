@@ -9,7 +9,6 @@ import csv
 import time
 import requests
 from datetime import datetime, timezone
-from .github.scripts.fetch_onchain import main as fetch_onchain_main
 
 COINGECKO_BASE = 'https://api.coingecko.com/api/v3'
 ETHERSCAN_API_KEY = os.environ.get('ETHERSCAN_API_KEY') or 'YOUR_ETHERSCAN_KEY'
