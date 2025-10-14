@@ -41,31 +41,38 @@ def get_price_info(coingecko_id):
         return {}
 
 def main():
-    rows=[]
+    rows = []
     for t in WATCHLIST:
         cg = get_price_info(t['coingecko_id'])
-        row={
+        onchain = fetch_onchain(t['contract_address'])  # <--- add this line
+
+        row = {
             'Ticker': t['ticker'],
             'Price': cg.get('current_price'),
             '24h%': cg.get('change_24h'),
             '7d%': cg.get('change_7d'),
             'MarketCap': cg.get('market_cap'),
             '24hVol': cg.get('volume_24h'),
+            'Holders': onchain.get('holders'),
+            'RecentTransfers_100': onchain.get('recent_transfers_100'),
+            'ExchangeTransferCount_100': onchain.get('exchange_transfer_count_100'),
             'LastUpdated': datetime.now(timezone.utc).isoformat()
         }
+
         rows.append(row)
         time.sleep(1)
+
     keys = list(rows[0].keys())
     with open(OUTPUT_CSV, 'w', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=keys)
         writer.writeheader()
         for r in rows:
             writer.writerow(r)
-    print(f"Wrote {OUTPUT_CSV}")
+    print(f"Wrote {OUTPUT_CSV} with {len(rows)} rows")
 
 if __name__ == '__main__':
     main()
-
+    
     # Run on-chain analysis right after price scan
     try:
         import subprocess
