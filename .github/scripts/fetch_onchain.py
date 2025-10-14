@@ -21,12 +21,11 @@ ETHERSCAN_API_KEY = os.environ.get('ETHERSCAN_API_KEY') or ''
 
 # Minimal watchlist format: use same tickers/ids as your scanner
 WATCHLIST = [
-    # replace contracts with real token contract addresses (lowercase)
-    {'ticker': 'PRIME', 'contract': '0x0000000000000000000000000000000000000000', 'chain': 'ethereum'},
-    {'ticker': 'LKI',   'contract': '0x0000000000000000000000000000000000000000', 'chain': 'ethereum'},
-    {'ticker': 'TAO',   'contract': '0x0000000000000000000000000000000000000000', 'chain': 'ethereum'},
-    {'ticker': 'RNDR',  'contract': '0x0000000000000000000000000000000000000000', 'chain': 'ethereum'},
-    {'ticker': 'PYTH',  'contract': '0x0000000000000000000000000000000000000000', 'chain': 'ethereum'},
+    {'ticker': 'PRIME', 'contract': '0xb23d80f5fefcddaa212212f028021b41ded428cf', 'chain': 'ethereum'},
+    {'ticker': 'LKI',   'contract': '0x3D1A0e1dE8e17bD50A865A340a3F5D8D1f46A1F1', 'chain': 'ethereum'},  # Lyka AI (double-check later)
+    {'ticker': 'TAO',   'contract': '0x7c81509037a9c0fddf02e0e4e8a855f1e1b1941a', 'chain': 'ethereum'},
+    {'ticker': 'RNDR',  'contract': '0x6de037ef9ad2725eb40118bb1702ebb27e4aeb24', 'chain': 'ethereum'},
+    {'ticker': 'PYTH',  'contract': '0x0c9c7712c83b3c70e7c5e11100d33d9401f18538', 'chain': 'ethereum'},
 ]
 
 OUTPUT_CSV = 'onchain_output.csv'
