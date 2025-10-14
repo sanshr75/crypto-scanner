@@ -44,8 +44,7 @@ def main():
     rows = []
     for t in WATCHLIST:
         cg = get_price_info(t['coingecko_id'])
-        onchain = fetch_onchain(t['contract_address'])  # <--- add this line
-
+        
         row = {
             'Ticker': t['ticker'],
             'Price': cg.get('current_price'),
