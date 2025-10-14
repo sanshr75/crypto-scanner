@@ -127,3 +127,11 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+def get_onchain_data(contract_address):
+    # Dummy fallback in case real fetch fails
+    return {
+        'holders': 0,
+        'recent_transfers_100': 0,
+        'exchange_transfer_count_100': 0
+    }
