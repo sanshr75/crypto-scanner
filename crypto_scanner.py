@@ -74,10 +74,21 @@ def main():
 if __name__ == '__main__':
     main()
 
-    # Run on-chain scanner after price data is done
+    # Run on-chain tracker after price data is done
     try:
         import subprocess
         print("Running on-chain tracker...")
-        subprocess.run(['python', '.github/scripts/fetch_onchain.py'], check=True)
+        result = subprocess.run(
+            ['python', '.github/scripts/fetch_onchain.py'],
+            check=True,
+            capture_output=True,
+            text=True
+        )
+        print("On-chain tracker output:\n", result.stdout)
+        print("On-chain tracker errors (if any):\n", result.stderr)
+    except subprocess.CalledProcessError as e:
+        print("On-chain tracker failed with error:")
+        print(e.stdout)
+        print(e.stderr)
     except Exception as e:
         print("Error running on-chain tracker:", e)
