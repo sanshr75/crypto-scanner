@@ -112,6 +112,10 @@ def main():
         rows.append(row)
         time.sleep(1.1)  # friendly to API rate limits
 
+     # Debug: see what data we're collecting before writing CSV
+    print("=== DEBUG: Raw Results ===")
+    print(rows)
+
     # Write CSV
     keys = list(rows[0].keys()) if rows else ['Ticker','Contract','Holders','RecentTransfers_100','ExchangeTransferCount_100','LastUpdated']
     with open(OUTPUT_CSV, 'w', newline='', encoding='utf-8') as f:
