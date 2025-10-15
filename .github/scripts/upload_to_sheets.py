@@ -7,7 +7,13 @@ SHEET_NAME = "Crypto Market Tracker"
 csv_files = ["scan_output.csv", "onchain_output.csv", "dev_output.csv"]
 
 creds_path = "credentials.json"
-creds = service_account.Credentials.from_service_account_file(creds_path, scopes=["https://www.googleapis.com/auth/spreadsheets"])
+creds = service_account.Credentials.from_service_account_file(
+    creds_path,
+    scopes=[
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive"
+    ]
+)
 gc = gspread.authorize(creds)
 sh = gc.open(SHEET_NAME)
 
